@@ -1,6 +1,6 @@
 {
   "name": "obsidian-image-auto-upload-pluginV2",
-  "version": "4.1.5",
+  "version": "4.1.6",
   "type": "module",
   "description": "This plugin uploads images from your clipboard by picGo and embeds uploaded image to your note",
   "main": "main.js",

@@ -144,7 +144,7 @@ export default class PicGoUploader implements Uploader {
   private async handleResponse(
     response: Awaited<ReturnType<typeof requestUrl>>
   ): Promise<Response> {
-    const data = (await response.json()) as PicGoResponse;
+    const data = (await response.json) as PicGoResponse;
 
     if (response.status !== 200) {
       console.error(response, data);
