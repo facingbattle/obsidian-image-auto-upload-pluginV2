@@ -35,6 +35,11 @@ export default {
   "Network Domain Black List": "Network Domain Black List",
   "Network Domain Black List Description":
     "Image in the domain list will not be upload,use comma separated",
+  "Image Bed Prefix White List": "Image Bed Prefix White List",
+  "Image Bed Prefix White List Description":
+    "Images matching the prefix whitelist will not be uploaded (already on target image bed). Supports newline or comma separated.",
+  "Image Bed Prefix White List Placeholder":
+    "https://your-image-bed.com\nhttps://cdn.example.com",
   "Delete source file after you upload file":
     "Delete source file after you upload file",
   "Delete source file in ob assets after you upload file.":

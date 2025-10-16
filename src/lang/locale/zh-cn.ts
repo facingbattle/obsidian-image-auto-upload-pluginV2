@@ -33,6 +33,11 @@ export default {
   "Network Domain Black List": "网络图片域名黑名单",
   "Network Domain Black List Description":
     "黑名单域名中的图片将不会被上传，用英文逗号分割",
+  "Image Bed Prefix White List": "图床前缀白名单",
+  "Image Bed Prefix White List Description":
+    "匹配白名单前缀的网络图片将不会被上传（已在目标图床），支持换行或英文逗号分割",
+  "Image Bed Prefix White List Placeholder":
+    "https://your-image-bed.com\nhttps://cdn.example.com",
   "Delete source file after you upload file": "上传文件后移除源文件",
   "Delete source file in ob assets after you upload file.":
     "上传文件后移除在ob附件文件夹中的文件",

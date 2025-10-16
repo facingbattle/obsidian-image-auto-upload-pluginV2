@@ -9,7 +9,7 @@ interface Image {
 // ![](./dsa/aa.png) local image should has ext, support ![](<./dsa/aa.png>), support ![](image.png "alt")
 // ![](https://dasdasda) internet image should not has ext
 const REGEX_FILE =
-  /\!\[(.*?)\]\(<(\S+\.\w+)>\)|\!\[(.*?)\]\((\S+\.\w+)(?:\s+"[^"]*")?\)|\!\[(.*?)\]\((https?:\/\/.*?)\)/g;
+  /\!\[(.*?)\]\(<(\S+\.\w+)>\)|\!\[(.*?)\]\((\S+\.\w+)(?:\s+"[^"]*")?\)|\!\[(.*?)\]\((https?:\/\/[^)]+)\)/g;
 const REGEX_WIKI_FILE = /\!\[\[(.*?)(\s*?\|.*?)?\]\]/g;
 
 export default class Helper {
@@ -116,5 +116,24 @@ export default class Helper {
     const domain = url.hostname;
 
     return blackDomainList.some(blackDomain => domain.includes(blackDomain));
+  }
+
+  /**
+   * 检查URL是否匹配上传前缀白名单
+   * @param src 图片URL
+   * @param prefixList 前缀列表，支持换行或逗号分隔
+   * @returns 如果匹配任一前缀返回true，否则返回false
+   */
+  matchesUploadPrefix(src: string, prefixList: string): boolean {
+    if (prefixList.trim() === "") {
+      return false;
+    }
+    // 支持换行和逗号分隔
+    const prefixes = prefixList
+      .split(/[\n,]/)
+      .map(item => item.trim())
+      .filter(item => item !== "");
+    
+    return prefixes.some(prefix => src.startsWith(prefix));
   }
 }

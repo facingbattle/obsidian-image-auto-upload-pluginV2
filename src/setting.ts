@@ -11,6 +11,7 @@ export interface PluginSettings {
   picgoCorePath: string;
   workOnNetWork: boolean;
   newWorkBlackDomains: string;
+  uploadPrefixWhiteList: string;
   applyImage: boolean;
   deleteSource: boolean;
   imageDesc: "origin" | "none" | "removeDefault";
@@ -28,6 +29,7 @@ export const DEFAULT_SETTINGS: PluginSettings = {
   workOnNetWork: false,
   applyImage: true,
   newWorkBlackDomains: "",
+  uploadPrefixWhiteList: "",
   deleteSource: false,
   imageDesc: "origin",
   remoteServerMode: false,
@@ -194,6 +196,19 @@ export class SettingTab extends PluginSettingTab {
           .setValue(this.plugin.settings.newWorkBlackDomains)
           .onChange(async value => {
             this.plugin.settings.newWorkBlackDomains = value;
+            await this.plugin.saveSettings();
+          })
+      );
+
+    new Setting(containerEl)
+      .setName(t("Image Bed Prefix White List"))
+      .setDesc(t("Image Bed Prefix White List Description"))
+      .addTextArea(textArea =>
+        textArea
+          .setPlaceholder(t("Image Bed Prefix White List Placeholder"))
+          .setValue(this.plugin.settings.uploadPrefixWhiteList)
+          .onChange(async value => {
+            this.plugin.settings.uploadPrefixWhiteList = value;
             await this.plugin.saveSettings();
           })
       );

@@ -240,6 +240,16 @@ export default class imageAutoUploadPlugin extends Plugin {
 
     for (const match of fileArray) {
       if (match.path.startsWith("http")) {
+        // 如果匹配图床前缀白名单，跳过上传（已在目标图床）
+        if (
+          this.helper.matchesUploadPrefix(
+            match.path,
+            this.settings.uploadPrefixWhiteList
+          )
+        ) {
+          continue;
+        }
+        
         if (this.settings.workOnNetWork) {
           if (
             !this.helper.hasBlackDomain(
