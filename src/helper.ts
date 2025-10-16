@@ -82,12 +82,21 @@ export default class Helper {
       if (path === undefined) {
         path = match[4];
       }
+      if (name === undefined) {
+        name = match[5];
+      }
+      if (path === undefined) {
+        path = match[6];
+      }
 
-      fileArray.push({
-        path: path,
-        name: name,
-        source: source,
-      });
+      // 防御性检查，确保path存在
+      if (path !== undefined) {
+        fileArray.push({
+          path: path,
+          name: name || "",
+          source: source,
+        });
+      }
     }
 
     for (const match of WikiMatches) {
