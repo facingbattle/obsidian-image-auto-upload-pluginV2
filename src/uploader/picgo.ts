@@ -70,6 +70,10 @@ export default class PicGoUploader implements Uploader {
         if (typeof item === "string") {
           return item;
         } else {
+          // 网络图片直接使用URL，不拼接本地路径
+          if (item.path.startsWith("http://") || item.path.startsWith("https://")) {
+            return item.path;
+          }
           return normalizePath(join(basePath, item.path));
         }
       });
@@ -140,7 +144,7 @@ export default class PicGoUploader implements Uploader {
   private async handleResponse(
     response: Awaited<ReturnType<typeof requestUrl>>
   ): Promise<Response> {
-    const data = (await response.json) as PicGoResponse;
+    const data = (await response.json()) as PicGoResponse;
 
     if (response.status !== 200) {
       console.error(response, data);
