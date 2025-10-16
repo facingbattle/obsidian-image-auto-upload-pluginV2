@@ -53,4 +53,6 @@ export default {
   "Warning: upload files is different of reciver files from api":
     "警告：上传的文件与接口返回的文件数量不一致",
   upload: "上传",
+  "Upload all images successfully": "所有图片上传成功",
+  "Upload failed": "上传失败",
 };

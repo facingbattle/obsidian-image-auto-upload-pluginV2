@@ -363,22 +363,28 @@ export default class imageAutoUploadPlugin extends Plugin {
       new Notice(`Have found ${imageList.length} images`);
     }
 
-    this.upload(imageList).then(res => {
-      let uploadUrlList = res.result;
-      if (imageList.length !== uploadUrlList.length) {
-        new Notice(
-          t("Warning: upload files is different of reciver files from api")
-        );
-        return;
-      }
-      const currentFile = this.app.workspace.getActiveFile();
-      if (activeFile.path !== currentFile.path) {
-        new Notice(t("File has been changedd, upload failure"));
-        return;
-      }
+    this.upload(imageList)
+      .then(res => {
+        let uploadUrlList = res.result;
+        if (imageList.length !== uploadUrlList.length) {
+          new Notice(
+            t("Warning: upload files is different of reciver files from api")
+          );
+          return;
+        }
+        const currentFile = this.app.workspace.getActiveFile();
+        if (activeFile.path !== currentFile.path) {
+          new Notice(t("File has been changedd, upload failure"));
+          return;
+        }
 
-      this.replaceImage(imageList, uploadUrlList);
-    });
+        this.replaceImage(imageList, uploadUrlList);
+        new Notice(t("Upload all images successfully"));
+      })
+      .catch(err => {
+        console.error("Upload failed:", err);
+        new Notice(t("Upload failed"));
+      });
   }
 
   setupPasteHandler() {
