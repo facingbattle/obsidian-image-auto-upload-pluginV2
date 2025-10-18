@@ -432,11 +432,31 @@ export default class imageAutoUploadPlugin extends Plugin {
                 let res: any;
                 res = await this.uploadByClipboard(evt.clipboardData.files);
 
-                if (res.code !== 0) {
-                  this.handleFailedUpload(editor, pasteId, res.msg);
+                console.log("上传返回值:", res);
+
+                // 兼容两种返回值格式
+                // 新格式: {success: boolean, msg: string, result: string[]}
+                // 旧格式: {code: number, data: string, msg: string}
+                let isSuccess: boolean;
+                let errorMsg: string;
+                let url: string;
+
+                if (typeof res.success !== "undefined") {
+                  // 新格式
+                  isSuccess = res.success;
+                  errorMsg = res.msg || "上传失败";
+                  url = res.result?.[0];
+                } else {
+                  // 旧格式
+                  isSuccess = res.code === 0;
+                  errorMsg = res.msg || "上传失败";
+                  url = res.data;
+                }
+
+                if (!isSuccess) {
+                  this.handleFailedUpload(editor, pasteId, errorMsg);
                   return;
                 }
-                const url = res.data;
 
                 return url;
               },
